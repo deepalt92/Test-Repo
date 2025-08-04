@@ -1,12 +1,12 @@
 1. **Refactor blocking I/O** 
     - `src/routes/items.js` uses `fs.readFileSync`. Replace with non‑blocking async operations.
 
-    Answer - I made the readData() function asynchronous using async, await (standard way of making functions asynchronus). This alows Node to handle other tasks while the promise is waiting to be resolved. Thus, the I/O is made non-blocking.
+    Answer - I made the *readData()* function asynchronous using async, await (standard way of making functions asynchronus). This alows Node to handle other tasks while the promise is waiting to be resolved. Thus, the I/O is made non-blocking.
 
 2. **Performance**  
    - `GET /api/stats` recalculates stats on every request. Cache results, watch file changes, or introduce a smarter strategy.
 
-   Answer -  I cache the stats in-memory. There is an initial cache load using the loadAndCacheStats() function when the module is loaded. Whenever the endpoint is hit, if the cache exists, the cached response is returned.
+   Answer -  I cache the stats in-memory. There is an initial cache load using the *loadAndCacheStats()* function when the module is loaded. Whenever the endpoint is hit, if the cache exists, the cached response is returned.
    ```
     if (cachedStats) {
     res.json(cachedStats);  // Immediate response
@@ -24,6 +24,9 @@
         }
     ```
    Also, this method auto updates the cache on file changes (i.e., if items.json changes).
+   ```
+    fs.watchFile(DATA_PATH, loadAndCacheStats);
+   ```
 
    Insights - The cache startegy is effective for data that does not change frequently, and are accessed often. It reduces I/O as the data is fetched from memory. This helps improve performance.
 
@@ -163,10 +166,10 @@
 
     Advantages of pagination - Reduces data transfer, improves performance, handles large datasets efficiently
 
-    3. **Performance**  
+3. **Performance**  
    - The list can grow large. Integrate **virtualization** (e.g., `react-window`) to keep UI smooth.
 
-    Answer - I use the FixedSizeList from 'react-window' to render a list with limited DOM nodes. This is done by limiting the list items to the viewport and fixing the viewport size.
+    Answer - I use the FixedSizeList from *react-window* to render a list with limited DOM nodes. This is done by limiting the list items to the viewport and fixing the viewport size.
     ```
         <List
         height={400}         // Viewport height
