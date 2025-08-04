@@ -51,7 +51,7 @@ function Items() {
   };
 
   const LoadingSkeleton = () => (
-    <div className="items-container">
+    <div className="items-container" data-testid="loading-skeleton">
       <div className="search-skeleton">
         <Skeleton height={40} width="100%" />
       </div>
