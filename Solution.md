@@ -1,3 +1,5 @@
+### 🔧 Backend (Node.js)
+
 1. **Refactor blocking I/O** 
     - `src/routes/items.js` uses `fs.readFileSync`. Replace with non‑blocking async operations.
 
