@@ -32,7 +32,7 @@ function Items() {
 
   const handleSearch = (e) => {
     setSearchQuery(e.target.value);
-    setCurrentPage(1); // Reset to first page on new search
+    setCurrentPage(1);
   };
 
   const handlePageChange = (newPage) => {
